@@ -43,10 +43,16 @@ const Index = () => {
         <section className="py-20 bg-secondary/10">
           <Container>
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-display font-bold tracking-tight mb-8 text-center">
+              <h2 className="text-3xl font-display font-bold tracking-tight mb-4 text-center">
                 Ask Our AI Assistant
               </h2>
-              <AIChat />
+              <p className="text-center text-muted-foreground mb-8 max-w-xl mx-auto">
+                Get personalized tech advice, product recommendations, and answers to your tech questions instantly.
+              </p>
+              <div className="relative z-10">
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-primary/5 rounded-xl blur-xl -z-10 opacity-70"></div>
+                <AIChat />
+              </div>
             </div>
           </Container>
         </section>
