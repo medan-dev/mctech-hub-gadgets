@@ -33,7 +33,7 @@ export function Header() {
             href="/" 
             className="text-2xl font-display font-semibold tracking-tight transition-opacity hover:opacity-80"
           >
-            GadgetTopia
+            Mctech-hub Gadgets
           </a>
         </div>
         

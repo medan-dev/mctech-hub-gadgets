@@ -9,7 +9,7 @@ export function Footer() {
       <Container>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-display font-semibold text-lg mb-4">GadgetTopia</h3>
+            <h3 className="font-display font-semibold text-lg mb-4">Mctech-hub Gadgets</h3>
             <p className="text-sm text-muted-foreground max-w-xs">
               Premium gadgets designed to enhance your digital lifestyle with elegance and performance.
             </p>
@@ -57,7 +57,7 @@ export function Footer() {
         
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} GadgetTopia. All rights reserved.
+            &copy; {currentYear} Mctech-hub Gadgets. All rights reserved.
           </p>
           
           <div className="flex space-x-6 mt-4 md:mt-0">
