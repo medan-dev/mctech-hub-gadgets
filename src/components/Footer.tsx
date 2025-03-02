@@ -56,9 +56,22 @@ export function Footer() {
         </div>
         
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} Mctech-hub Gadgets. All rights reserved.
-          </p>
+          <div className="flex flex-col md:flex-row items-center gap-2">
+            <p className="text-sm text-muted-foreground">
+              &copy; {currentYear} Mctech-hub Gadgets. All rights reserved.
+            </p>
+            <span className="hidden md:inline text-muted-foreground">•</span>
+            <p className="text-sm text-muted-foreground">
+              Developed by <a 
+                href="https://medan-dev.github.io/Mctech-hub/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-accent hover:underline font-medium"
+              >
+                Mctech-hub
+              </a>
+            </p>
+          </div>
           
           <div className="flex space-x-6 mt-4 md:mt-0">
             {["Terms", "Privacy", "Cookies"].map((item) => (
