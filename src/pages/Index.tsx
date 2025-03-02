@@ -5,6 +5,8 @@ import HeroSection from "@/components/HeroSection";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
+import AIChat from "@/components/AIChat";
+import { Container } from "@/components/ui/container";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,6 +38,19 @@ const Index = () => {
       <main>
         <HeroSection />
         <FeaturedProducts />
+        
+        {/* AI Assistant Section */}
+        <section className="py-20 bg-secondary/10">
+          <Container>
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-display font-bold tracking-tight mb-8 text-center">
+                Ask Our AI Assistant
+              </h2>
+              <AIChat />
+            </div>
+          </Container>
+        </section>
+        
         <Newsletter />
       </main>
       

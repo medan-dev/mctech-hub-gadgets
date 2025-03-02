@@ -4,12 +4,15 @@ import { useIntersectionObserver } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { Loader2 } from "lucide-react";
 
 export function Newsletter() {
   const { ref, isVisible } = useIntersectionObserver();
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email) {
@@ -17,9 +20,37 @@ export function Newsletter() {
       return;
     }
     
-    // Simulate API call
-    toast.success("Thanks for subscribing!");
-    setEmail("");
+    setIsSubmitting(true);
+    try {
+      // Store subscriber in database (would be implemented with proper DB setup)
+      console.log("Subscribing email:", email);
+      
+      // Send welcome email using Supabase Edge Function
+      const { error } = await supabase.functions.invoke('send-email', {
+        body: {
+          to: email,
+          subject: "Welcome to Mctech-hub Gadgets Newsletter",
+          html: `
+            <h1>Welcome to the Mctech-hub Gadgets Newsletter!</h1>
+            <p>Thank you for subscribing to our newsletter.</p>
+            <p>You'll now receive updates about our latest products, exclusive offers, and technology insights.</p>
+            <p>Stay tech-savvy!</p>
+            <p>- The Mctech-hub Gadgets Team</p>
+          `,
+          type: "newsletter"
+        }
+      });
+      
+      if (error) throw error;
+      
+      toast.success("Thanks for subscribing!");
+      setEmail("");
+    } catch (error) {
+      console.error("Error subscribing to newsletter:", error);
+      toast.error("Failed to subscribe. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   return (
@@ -59,9 +90,17 @@ export function Newsletter() {
                   
                   <button
                     type="submit"
-                    className="w-full h-12 rounded-md bg-white text-accent font-medium transition-colors hover:bg-white/90"
+                    disabled={isSubmitting}
+                    className="w-full h-12 rounded-md bg-white text-accent font-medium transition-colors hover:bg-white/90 disabled:opacity-70 flex items-center justify-center"
                   >
-                    Subscribe
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Subscribing...
+                      </>
+                    ) : (
+                      "Subscribe"
+                    )}
                   </button>
                 </form>
               </div>
