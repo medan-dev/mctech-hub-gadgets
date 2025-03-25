@@ -11,6 +11,20 @@ export interface Product {
   rating: number;
 }
 
+export interface Subcategory {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  description: string;
+  subcategories?: Subcategory[];
+  products?: Product[];
+}
+
 export const products: Product[] = [
   {
     id: "1",
@@ -80,13 +94,71 @@ export const products: Product[] = [
   }
 ];
 
-export const categories = [
-  { id: "all", name: "All Products" },
-  { id: "monitors", name: "Monitors" },
-  { id: "accessories", name: "Accessories" },
-  { id: "audio", name: "Audio" },
-  { id: "wearables", name: "Wearables" },
-  { id: "tablets", name: "Tablets" }
+// Helper functions to group products by category
+const getProductsByCategory = (categoryId: string): Product[] => {
+  if (categoryId === "all") return products;
+  return products.filter(product => 
+    product.category.toLowerCase() === categoryId.toLowerCase()
+  );
+};
+
+export const categories: Category[] = [
+  { 
+    id: "all", 
+    name: "All Products",
+    description: "Browse our complete catalog of premium tech products",
+    products: products
+  },
+  { 
+    id: "monitors", 
+    name: "Monitors", 
+    description: "High-quality displays for professionals and creatives",
+    products: getProductsByCategory("monitors"),
+    subcategories: [
+      { id: "gaming-monitors", name: "Gaming Monitors", description: "High refresh rate monitors for gamers" },
+      { id: "professional", name: "Professional Displays", description: "Color-accurate displays for creative work" }
+    ]
+  },
+  { 
+    id: "accessories", 
+    name: "Accessories",
+    description: "Essential add-ons to enhance your tech experience",
+    products: getProductsByCategory("accessories"),
+    subcategories: [
+      { id: "keyboards", name: "Keyboards", description: "Mechanical and wireless keyboards" },
+      { id: "mice", name: "Mice & Trackpads", description: "Precision pointing devices" }
+    ]
+  },
+  { 
+    id: "audio", 
+    name: "Audio",
+    description: "Premium audio equipment for the perfect sound experience",
+    products: getProductsByCategory("audio"),
+    subcategories: [
+      { id: "headphones", name: "Headphones", description: "Over-ear and in-ear headphones" },
+      { id: "speakers", name: "Speakers", description: "Bluetooth and smart speakers" }
+    ]
+  },
+  { 
+    id: "wearables", 
+    name: "Wearables",
+    description: "Smart devices designed to be worn throughout the day",
+    products: getProductsByCategory("wearables"),
+    subcategories: [
+      { id: "smartwatches", name: "Smartwatches", description: "Fitness and lifestyle watches" },
+      { id: "fitness", name: "Fitness Trackers", description: "Activity and health monitoring devices" }
+    ]
+  },
+  { 
+    id: "tablets", 
+    name: "Tablets",
+    description: "Portable touchscreen devices for work and entertainment",
+    products: getProductsByCategory("tablets"),
+    subcategories: [
+      { id: "pro-tablets", name: "Pro Tablets", description: "High-performance tablets for professionals" },
+      { id: "budget", name: "Budget Tablets", description: "Affordable options for everyday use" }
+    ]
+  }
 ];
 
 export const getFeaturedProducts = (): Product[] => {
@@ -97,9 +169,4 @@ export const getNewProducts = (): Product[] => {
   return products.filter(product => product.new);
 };
 
-export const getProductsByCategory = (categoryId: string): Product[] => {
-  if (categoryId === "all") return products;
-  return products.filter(product => 
-    product.category.toLowerCase() === categoryId.toLowerCase()
-  );
-};
+export { getProductsByCategory };
